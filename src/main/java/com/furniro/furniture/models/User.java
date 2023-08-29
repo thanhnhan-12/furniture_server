@@ -7,6 +7,7 @@ import lombok.Setter;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(uniqueConstraints = { @UniqueConstraint(columnNames = {"username", "password", "email", "phoneNumber"})}, name="user" )
@@ -24,10 +25,19 @@ public class User {
     private String phoneNumber;
     private String firstName;
     private String lastName;
-    private String role;
+//    private String role;
+
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name = "name", joinColumns = @JoinColumn(name = "userID",
+            referencedColumnName = "userID"), inverseJoinColumns = @JoinColumn(name = "roleID",
+            referencedColumnName = "roleID")
+    )
+    private Set<Role> roles;
 
     @Email
     private String email;
+
+    private boolean isLocked;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Orders> ordersList;

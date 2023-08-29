@@ -1,20 +1,28 @@
 package com.furniro.furniture.controllers;
 
 import com.furniro.furniture.constants.MessageEnum;
-import com.furniro.furniture.constants.Role;
+import com.furniro.furniture.models.Role;
 import com.furniro.furniture.models.User;
 import com.furniro.furniture.payload.request.RegisterRequest;
 import com.furniro.furniture.payload.response.CommonResponse;
 import com.furniro.furniture.repositories.RoleRepository;
 import com.furniro.furniture.services.user.IUserService;
 import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.rmi.AlreadyBoundException;
+import java.util.Collections;
+
+@RestController
+@RequestMapping("/api/v1/auth")
+@AllArgsConstructor
 
 public class AuthController {
 
@@ -44,8 +52,12 @@ public class AuthController {
         user.setUsername(registerRequest.getUsername());
         user.setEmail(registerRequest.getEmail());
         user.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
-        user.setRole(Role.ROLE_USER);
 
+        Role roles = roleRepository.findByName(
+                com.furniro.furniture.constants.Role.ROLE_USER);
+
+        // Set 1 role
+        user.setRoles(Collections.singleton(roles));
         User userResult = userService.createUser(user);
         CommonResponse<User> userCommonResponse =
                 new CommonResponse<>("User registered successfully", userResult);
