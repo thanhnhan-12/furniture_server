@@ -53,4 +53,7 @@ public class User {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comment> commentList;
+
+    @OneToOne(mappedBy = "user")
+    private RefreshToken refreshToken;
 }

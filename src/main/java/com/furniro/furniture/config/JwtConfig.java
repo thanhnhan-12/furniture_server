@@ -19,6 +19,7 @@ public class JwtConfig {
     @Value("${jwt.expirationMs}")
     private long expirationMs;
 
+
     //    Create JWT from user
     public String generateToken(String username, List<String> roleList) {
         Date now = new Date();
@@ -58,5 +59,4 @@ public class JwtConfig {
         final String username = extractUsername(token);
         return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
     }
-
 }
