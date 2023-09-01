@@ -15,8 +15,10 @@
 	<description>Furniture project for Spring Boot</description>
 	<properties>
 		<java.version>17</java.version>
+		<org.mapstruct.version>1.4.2.Final</org.mapstruct.version>
 		<io.token.version>0.9.1</io.token.version>
 		<javax.jaxb-api.version>2.3.1</javax.jaxb-api.version>
+		<version.mapstruct-lombok>0.2.0</version.mapstruct-lombok>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -68,6 +70,24 @@
 			<groupId>javax.xml.bind</groupId>
 			<artifactId>jaxb-api</artifactId>
 			<version>${javax.jaxb-api.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.mapstruct</groupId>
+			<artifactId>mapstruct</artifactId>
+			<version>${org.mapstruct.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok-mapstruct-binding</artifactId>
+			<version>${version.mapstruct-lombok}</version>
+		</dependency>
+
+		<dependency>
+			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+			<groupId>org.springdoc</groupId>
+			<version>2.0.4</version>
 		</dependency>
 
 	</dependencies>

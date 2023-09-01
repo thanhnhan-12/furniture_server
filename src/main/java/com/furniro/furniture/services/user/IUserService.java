@@ -1,5 +1,7 @@
 package com.furniro.furniture.services.user;
 
+import com.furniro.furniture.payload.response.ListResponse;
+
 public interface IUserService<T> {
 
     T findByEmail(String email);
@@ -9,7 +11,4 @@ public interface IUserService<T> {
     boolean isEmailTaken(String email);
 
     T createUser(T user);
-
-
-
 }

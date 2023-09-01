@@ -15,9 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
 
     private IUserService<User> userService;
-//    private UserMapper userMapper;
     private PasswordEncoder passwordEncoder;
-
-
 
 }
