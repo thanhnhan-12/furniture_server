@@ -10,7 +10,8 @@ public class NoWhitespaceValidator implements ConstraintValidator<NoWhitespace, 
 
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
-        System.out.println("Value: " + value.contains(" "));
+//        System.out.println("Value: " + value.contains(" "));
+        System.out.println("Value: " + (value != null ? value.contains(" ") : "null"));
         return value != null && !value.contains(" ");
     }
 }

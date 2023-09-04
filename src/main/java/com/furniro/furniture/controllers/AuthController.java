@@ -57,16 +57,17 @@ public class AuthController {
             throw new AlreadyBoundException(MessageEnum.ALREADY_EXIST.getFormattedField("Email"));
         }
 
-        if (userService.isUsernameTaken(registerRequest.getUsername())) {
-            throw new AlreadyBoundException(MessageEnum.ALREADY_EXIST.getFormattedField("Username"));
-        }
+//        if (userService.isUsernameTaken(registerRequest.getUsername())) {
+//            throw new AlreadyBoundException(MessageEnum.ALREADY_EXIST.getFormattedField("Username"));
+//        }
 
         User user = new User();
         user.setFirstName(registerRequest.getFirstName());
         user.setLastName(registerRequest.getLastName());
-        user.setUsername(registerRequest.getUsername());
+//        user.setUsername(registerRequest.getUsername());
         user.setEmail(registerRequest.getEmail());
         user.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
+
 
         Role roles = roleRepository.findByName(
                 com.furniro.furniture.constants.Role.ROLE_USER);
