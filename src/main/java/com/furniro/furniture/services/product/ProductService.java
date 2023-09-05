@@ -1,5 +1,6 @@
 package com.furniro.furniture.services.product;
 
+import com.furniro.furniture.dto.ProductDto;
 import com.furniro.furniture.models.Product;
 import com.furniro.furniture.repositories.ProductRepository;
 import lombok.AllArgsConstructor;
@@ -14,8 +15,8 @@ public class ProductService implements IProductService<Product> {
     private ProductRepository productRepository;
 
     @Override
-    public List<Product> getAllProducts() {
-        return productRepository.findAll();
+    public List<ProductDto> getAllProducts() {
+        return productRepository.getAllProduct() ;
     }
 
 //    @Override
@@ -24,7 +25,7 @@ public class ProductService implements IProductService<Product> {
 //    }
 
     @Override
-    public boolean existByProductList(int productID, Product product) {
-        return productRepository.existsById(productID);
+    public List<ProductDto> existByProductList(int productID, Product product) {
+        return productRepository.getAllProduct();
     }
 }

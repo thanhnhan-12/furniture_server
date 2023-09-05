@@ -68,6 +68,8 @@ public class SecurityConfig {
                 .authorizeRequests(authorize -> authorize
                         .requestMatchers("/api/v1/auth/**").permitAll()
                         .requestMatchers("/api/v1/product/**").permitAll()
+                        .requestMatchers("/api/v1/images/**").permitAll()
+                        .requestMatchers("/api/v1/category/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .exceptionHandling(exceptionHandling ->
