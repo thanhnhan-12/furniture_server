@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000", maxAge = 3600)
@@ -26,5 +27,22 @@ public class ProductController {
             return ResponseEntity.ok(productList);
         }
     }
+
+    @GetMapping("/{productID}")
+    public ResponseEntity<List<ProductDto>>  getProductById(@PathVariable int productID) {
+        List<ProductDto> productList = productService.findProductByID(productID);
+
+        if (productList.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.ok(productList);
+        }
+    }
+
+
+
+
+
+
 
 }

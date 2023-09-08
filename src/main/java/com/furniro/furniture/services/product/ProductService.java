@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -19,10 +20,10 @@ public class ProductService implements IProductService<Product> {
         return productRepository.getAllProduct() ;
     }
 
-//    @Override
-//    public Product getProductByID(int productID) {
-//        return productRepository.findById(productID).orElse(null);
-//    }
+    @Override
+    public List<ProductDto> findProductByID(int productID) {
+        return productRepository.findById(productID);
+    }
 
     @Override
     public List<ProductDto> existByProductList(int productID, Product product) {
