@@ -2,7 +2,7 @@ package com.furniro.furniture.services.token;
 
 import com.furniro.furniture.models.RefreshToken;
 
-public interface IRefreshToken {
+public interface RefreshTokenImp {
     public RefreshToken findByToken(String token);
 
     RefreshToken createRefreshToken(int userID);

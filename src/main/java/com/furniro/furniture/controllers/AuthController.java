@@ -12,8 +12,8 @@ import com.furniro.furniture.payload.response.CommonResponse;
 import com.furniro.furniture.payload.response.JwtResponse;
 import com.furniro.furniture.payload.response.MessageResponse;
 import com.furniro.furniture.repositories.RoleRepository;
-import com.furniro.furniture.services.token.IRefreshToken;
-import com.furniro.furniture.services.user.IUserService;
+import com.furniro.furniture.services.token.RefreshTokenImp;
+import com.furniro.furniture.services.user.UserServiceImp;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -41,12 +41,12 @@ import java.util.stream.Collectors;
 
 public class AuthController {
 
-    private IUserService<User> userService;
+    private UserServiceImp<User> userService;
     private RoleRepository roleRepository;
     private PasswordEncoder passwordEncoder;
     private AuthenticationManager authenticationManager;
     private JwtConfig jwtConfig;
-    private IRefreshToken refreshTokenService;
+    private RefreshTokenImp refreshTokenService;
 
     @PostMapping("/register")
     public ResponseEntity<?> registerUser(@Valid @RequestBody RegisterRequest registerRequest)

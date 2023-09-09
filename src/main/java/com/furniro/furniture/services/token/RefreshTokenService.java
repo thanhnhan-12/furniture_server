@@ -14,7 +14,7 @@ import java.time.Instant;
 import java.util.UUID;
 
 @Service
-public class RefreshTokenService implements IRefreshToken {
+public class RefreshTokenService implements RefreshTokenImp {
 
     private Long refreshTokenDurationMs =20000L;
 

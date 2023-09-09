@@ -5,7 +5,7 @@ import com.furniro.furniture.models.Category;
 
 import java.util.List;
 
-public interface ICategoryService<C> {
+public interface CategoryServiceImp<C> {
     List<CategoryDto> getAllCategory();
 
     List<CategoryDto> existByCategoryList(int categoryID, Category category);

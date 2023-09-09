@@ -1,8 +1,6 @@
 package com.furniro.furniture.services.user;
 
-import com.furniro.furniture.payload.response.ListResponse;
-
-public interface IUserService<T> {
+public interface UserServiceImp<T> {
 
     T findByEmail(String email);
 

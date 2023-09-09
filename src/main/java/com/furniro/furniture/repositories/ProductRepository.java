@@ -1,6 +1,5 @@
 package com.furniro.furniture.repositories;
 
-import com.furniro.furniture.dto.ImageDto;
 import com.furniro.furniture.dto.ProductDto;
 import com.furniro.furniture.models.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -9,7 +8,6 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Integer> {
@@ -21,7 +19,8 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
             "where p.productid = i.productid", nativeQuery = true)
     List<ProductDto> getAllProduct();
 
-    @Query(value = "SELECT p.productID as productID, p.product_name AS productName, p.description, p.price, i.name_image AS nameImage FROM Product p, Images as i WHERE p.productID = :productID", nativeQuery = true)
+    @Query(value = "SELECT p.productID as productID, p.product_name AS productName, p.description, p.price, i.name_image AS nameImage FROM Product p, Images as i " +
+            "WHERE p.productID = :productID and p.productid = i.productid ", nativeQuery = true)
     List<ProductDto> findById(@Param("productID") int productID);
 
 }

@@ -2,7 +2,7 @@ package com.furniro.furniture.controllers;
 
 import com.furniro.furniture.dto.CategoryDto;
 import com.furniro.furniture.models.Category;
-import com.furniro.furniture.services.category.ICategoryService;
+import com.furniro.furniture.services.category.CategoryServiceImp;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -18,7 +18,7 @@ import java.util.List;
 @AllArgsConstructor
 public class CategoryController {
 
-    private ICategoryService<Category> categoryService;
+    private CategoryServiceImp<Category> categoryService;
 
     @GetMapping
     public ResponseEntity<List<CategoryDto>> getAllCategory() {

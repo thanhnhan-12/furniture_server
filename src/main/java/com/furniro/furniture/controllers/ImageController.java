@@ -1,7 +1,7 @@
 package com.furniro.furniture.controllers;
 
 import com.furniro.furniture.models.Images;
-import com.furniro.furniture.services.images.IImageService;
+import com.furniro.furniture.services.images.ImageServiceImp;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -17,7 +17,7 @@ import java.util.List;
 @AllArgsConstructor
 public class ImageController {
 
-    private IImageService<Images> imageService;
+    private ImageServiceImp<Images> imageService;
 
     @GetMapping
     public ResponseEntity<List<Images>> getImage() {

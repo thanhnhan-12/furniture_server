@@ -9,7 +9,7 @@ import java.util.List;
 
 @Service
 @AllArgsConstructor
-public class ImageService implements IImageService<Images> {
+public class ImageService implements ImageServiceImp<Images> {
 
     private ImageRepository imageRepository;
 
