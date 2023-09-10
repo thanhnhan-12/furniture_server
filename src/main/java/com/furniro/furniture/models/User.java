@@ -25,14 +25,10 @@ public class User {
     private String phoneNumber;
     private String firstName;
     private String lastName;
-//    private String role;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(name = "name", joinColumns = @JoinColumn(name = "userID",
-            referencedColumnName = "userID"), inverseJoinColumns = @JoinColumn(name = "roleID",
-            referencedColumnName = "roleID")
-    )
-    private Set<Role> roles;
+    @OneToOne
+    @JoinColumn(name = "role_id", referencedColumnName = "roleID")
+    private Role roles;
 
     @Email
     private String email;

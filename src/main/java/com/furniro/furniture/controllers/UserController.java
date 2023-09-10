@@ -1,7 +1,7 @@
 package com.furniro.furniture.controllers;
 
 import com.furniro.furniture.models.User;
-import com.furniro.furniture.services.user.UserServiceImp;
+import com.furniro.furniture.services.user.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 public class UserController {
 
-    private UserServiceImp<User> userService;
+    private UserService<User> userService;
     private PasswordEncoder passwordEncoder;
 
 }

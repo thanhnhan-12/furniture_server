@@ -1,12 +1,46 @@
 package com.furniro.furniture.services.user;
 
-public interface UserServiceImp<T> {
+import com.furniro.furniture.models.User;
+import com.furniro.furniture.repositories.UserRepository;
+import com.furniro.furniture.utils.PageableCommon;
+import lombok.AllArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-    T findByEmail(String email);
+@AllArgsConstructor
+@Service
+public class UserServiceImp implements UserService<User> {
 
-    boolean isUsernameTaken(String username);
+    private UserRepository userRepository;
+    private PageableCommon pageableCommon;
 
-    boolean isEmailTaken(String email);
+    @Transactional
+    @Override
+    public User findByEmail(String email) {
+        return userRepository.findByEmail(email).orElse(null);
+    }
 
-    T createUser(T user);
+    @Override
+    public boolean isUsernameTaken(String userName) {
+        return userRepository.existsByUsername(userName);
+    }
+
+    @Override
+    public boolean isEmailTaken(String email) {
+        return userRepository.existsByEmail(email);
+    }
+
+    @Override
+    public User createUser(User user) {
+        return userRepository.save(user);
+    }
+
+    @Override
+    public User getUserLogin() {
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
+                .getPrincipal();
+        return this.findByEmail(userDetails.getUsername());
+    }
 }

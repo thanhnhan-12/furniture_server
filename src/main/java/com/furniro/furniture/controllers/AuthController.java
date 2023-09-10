@@ -3,7 +3,6 @@ package com.furniro.furniture.controllers;
 import com.furniro.furniture.config.JwtConfig;
 import com.furniro.furniture.constants.MessageEnum;
 import com.furniro.furniture.exception.ResourceNotFoundException;
-import com.furniro.furniture.models.RefreshToken;
 import com.furniro.furniture.models.Role;
 import com.furniro.furniture.models.User;
 import com.furniro.furniture.payload.request.LoginRequest;
@@ -12,8 +11,8 @@ import com.furniro.furniture.payload.response.CommonResponse;
 import com.furniro.furniture.payload.response.JwtResponse;
 import com.furniro.furniture.payload.response.MessageResponse;
 import com.furniro.furniture.repositories.RoleRepository;
-import com.furniro.furniture.services.token.RefreshTokenImp;
-import com.furniro.furniture.services.user.UserServiceImp;
+import com.furniro.furniture.services.token.RefreshTokenService;
+import com.furniro.furniture.services.user.UserService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -41,12 +40,12 @@ import java.util.stream.Collectors;
 
 public class AuthController {
 
-    private UserServiceImp<User> userService;
+    private UserService<User> userService;
     private RoleRepository roleRepository;
     private PasswordEncoder passwordEncoder;
     private AuthenticationManager authenticationManager;
     private JwtConfig jwtConfig;
-    private RefreshTokenImp refreshTokenService;
+    private RefreshTokenService refreshTokenService;
 
     @PostMapping("/register")
     public ResponseEntity<?> registerUser(@Valid @RequestBody RegisterRequest registerRequest)
@@ -73,7 +72,7 @@ public class AuthController {
                 com.furniro.furniture.constants.Role.ROLE_USER);
 
         // Set 1 role
-        user.setRoles(Collections.singleton(roles));
+        user.setRoles(roles);
         User userResult = userService.createUser(user);
         CommonResponse<User> userCommonResponse =
                 new CommonResponse<>("User registered successfully", userResult);
@@ -102,7 +101,7 @@ public class AuthController {
                 List<String> roleList = authentication.getAuthorities().stream()
                         .map(GrantedAuthority::getAuthority)
                         .collect(Collectors.toList());
-
+                System.out.println("ROLE" + roleList);
                 final String token = jwtConfig.generateToken(loginRequest.getEmail(), roleList);
 
                 boolean isExitsUserToken = refreshTokenService.existsByUserId(user.getUserID());
@@ -111,7 +110,7 @@ public class AuthController {
                     refreshTokenService.deleteByUserId(user.getUserID());
                 }
 
-                RefreshToken refreshToken = refreshTokenService.createRefreshToken(user.getUserID());
+                com.furniro.furniture.models.RefreshToken refreshToken = refreshTokenService.createRefreshToken(user.getUserID());
 
                 return ResponseEntity.ok(
                         new JwtResponse(token, refreshToken.getToken(), user.getUsername(),

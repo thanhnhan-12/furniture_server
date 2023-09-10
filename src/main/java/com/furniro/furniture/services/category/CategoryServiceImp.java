@@ -2,11 +2,25 @@ package com.furniro.furniture.services.category;
 
 import com.furniro.furniture.dto.CategoryDto;
 import com.furniro.furniture.models.Category;
+import com.furniro.furniture.repositories.CategoryRepository;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-public interface CategoryServiceImp<C> {
-    List<CategoryDto> getAllCategory();
+@Service
+@AllArgsConstructor
+public class CategoryServiceImp implements CategoryService<Category> {
 
-    List<CategoryDto> existByCategoryList(int categoryID, Category category);
+    private CategoryRepository categoryRepository;
+
+    @Override
+    public List<CategoryDto> getAllCategory() {
+        return categoryRepository.getAllCategory();
+    }
+
+    @Override
+    public List<CategoryDto> existByCategoryList(int categoryID, Category category) {
+        return categoryRepository.getAllCategory();
+    }
 }

@@ -1,15 +1,42 @@
 package com.furniro.furniture.services.product;
 
+
 import com.furniro.furniture.dto.ProductDto;
+import com.furniro.furniture.dto.ProductDtoMapper;
+import com.furniro.furniture.exception.ResourceNotFoundException;
+import com.furniro.furniture.mapper.ProductMapper;
 import com.furniro.furniture.models.Product;
+import com.furniro.furniture.repositories.ProductRepository;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
-public interface ProductServiceImp<P> {
-    List<ProductDto> getAllProducts();
+@Service
+@AllArgsConstructor
+public class ProductServiceImp implements ProductService<Product> {
 
-    List<ProductDto> findProductByID(int productID);
+    private ProductRepository productRepository;
+    private ProductMapper productMapper;
 
-    List<ProductDto> existByProductList(int productID , Product product);
+    @Override
+    public List<ProductDto> getAllProducts() {
+        return productRepository.getAllProduct() ;
+    }
 
+    @Override
+    public ProductDtoMapper findProductByID(int productID) {
+        Product product =  productRepository.findById(productID).orElse(null);
+        if(product == null) {
+            throw new ResourceNotFoundException("Product not found");
+        }
+
+        return productMapper.mapToProduct(product);
+    }
+
+    @Override
+    public List<ProductDto> existByProductList(int productID, Product product) {
+        return productRepository.getAllProduct();
+    }
 }

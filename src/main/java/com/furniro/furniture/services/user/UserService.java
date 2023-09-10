@@ -1,37 +1,15 @@
 package com.furniro.furniture.services.user;
 
-import com.furniro.furniture.models.User;
-import com.furniro.furniture.repositories.UserRepository;
-import com.furniro.furniture.utils.PageableCommon;
-import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+public interface UserService<T> {
 
-@AllArgsConstructor
-@Service
-public class UserService implements UserServiceImp<User> {
+    T findByEmail(String email);
 
-    private UserRepository userRepository;
-    private PageableCommon pageableCommon;
+    boolean isUsernameTaken(String username);
 
-    @Transactional
-    @Override
-    public User findByEmail(String email) {
-        return userRepository.findByEmail(email).orElse(null);
-    }
+    boolean isEmailTaken(String email);
 
-    @Override
-    public boolean isUsernameTaken(String userName) {
-        return userRepository.existsByUsername(userName);
-    }
+    T createUser(T user);
 
-    @Override
-    public boolean isEmailTaken(String email) {
-        return userRepository.existsByEmail(email);
-    }
+    T getUserLogin();
 
-    @Override
-    public User createUser(User user) {
-        return userRepository.save(user);
-    }
 }

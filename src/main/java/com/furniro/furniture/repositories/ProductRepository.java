@@ -1,6 +1,8 @@
 package com.furniro.furniture.repositories;
 
 import com.furniro.furniture.dto.ProductDto;
+import com.furniro.furniture.dto.ProductDtoMapper;
+import com.furniro.furniture.dto.ProductDtoMapper;
 import com.furniro.furniture.models.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -18,9 +20,5 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
             "FROM product p, images as i\n" +
             "where p.productid = i.productid", nativeQuery = true)
     List<ProductDto> getAllProduct();
-
-    @Query(value = "SELECT p.productID as productID, p.product_name AS productName, p.description, p.price, i.name_image AS nameImage FROM Product p, Images as i " +
-            "WHERE p.productID = :productID and p.productid = i.productid ", nativeQuery = true)
-    List<ProductDto> findById(@Param("productID") int productID);
 
 }

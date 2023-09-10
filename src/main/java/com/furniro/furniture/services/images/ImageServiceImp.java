@@ -1,12 +1,25 @@
 package com.furniro.furniture.services.images;
 
 import com.furniro.furniture.models.Images;
+import com.furniro.furniture.repositories.ImageRepository;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-public interface ImageServiceImp<I> {
-    List<Images> getImages();
+@Service
+@AllArgsConstructor
+public class ImageServiceImp implements ImageService<Images> {
 
-    boolean existByImageList(int imageID , Images images);
+    private ImageRepository imageRepository;
 
+    @Override
+    public List<Images> getImages() {
+        return imageRepository.findAll();
+    }
+
+    @Override
+    public boolean existByImageList(int imageID, Images images) {
+        return imageRepository.existsById(imageID) ;
+    }
 }
