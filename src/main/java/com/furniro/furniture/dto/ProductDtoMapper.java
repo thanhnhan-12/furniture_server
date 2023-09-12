@@ -12,7 +12,6 @@ import java.util.List;
 //@AllArgsConstructor
 public class ProductDtoMapper {
     private int productID;
-
     private String productName;
     private String description;
     private double price;
