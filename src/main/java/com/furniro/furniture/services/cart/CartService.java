@@ -5,13 +5,17 @@ import com.furniro.furniture.payload.request.CartRequest;
 
 import java.util.List;
 
-public interface CartService<C, U> {
+public interface CartService<C> {
 
-    List<CartDto> getAllCarts();
+    List<CartDto> getAllCart();
 
     List<CartDto> findCartByID(int cartID);
 
     C createCart(CartRequest cartRequest);
 
+    C existCart(int userID, int productID);
+
     int deleteCartByID(int cartID);
+
+    C updateCart(int quantity, int cartID);
 }
