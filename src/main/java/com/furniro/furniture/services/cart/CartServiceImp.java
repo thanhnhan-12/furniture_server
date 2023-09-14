@@ -35,6 +35,12 @@ public class CartServiceImp implements CartService<Cart> {
     }
 
     @Override
+    public List<CartDto> getCartByUser(User userID) {
+        userID = (User) userService.getUserLogin();
+        return cartRepository.getCartByUser(userID.getUserID());
+    }
+
+    @Override
     public List<CartDto> findCartByID(int cartID) {
         return null;
     }
