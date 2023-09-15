@@ -10,7 +10,7 @@ public interface CartService<C> {
 
     List<CartDto> getAllCart();
 
-    List<CartDto> getCartByUser(User userID);
+    List<CartDto> getCartByUser();
 
     List<CartDto> findCartByID(int cartID);
 
@@ -18,7 +18,7 @@ public interface CartService<C> {
 
     C existCart(int userID, int productID);
 
-    int deleteCartByID(int cartID);
+    void deleteCartByID(int cartID);
 
     C updateCart(int quantity, int cartID);
 }

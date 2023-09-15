@@ -13,10 +13,8 @@ import com.furniro.furniture.services.user.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -35,8 +33,8 @@ public class CartServiceImp implements CartService<Cart> {
     }
 
     @Override
-    public List<CartDto> getCartByUser(User userID) {
-        userID = (User) userService.getUserLogin();
+    public List<CartDto> getCartByUser() {
+        User userID = (User) userService.getUserLogin();
         return cartRepository.getCartByUser(userID.getUserID());
     }
 
@@ -67,8 +65,8 @@ public class CartServiceImp implements CartService<Cart> {
     }
 
     @Override
-    public int deleteCartByID(int cartID) {
-        return 0;
+    public void deleteCartByID(int cartID) {
+        cartRepository.deleteById(cartID);
     }
 
     @Override

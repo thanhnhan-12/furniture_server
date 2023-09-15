@@ -28,18 +28,9 @@ public class CartController {
     private ProductService<Product> productService;
 
     @GetMapping
-    public ResponseEntity<List<CartDto>> getAllCart() {
-        List<CartDto> cartList = cartService.getAllCart();
-        if (cartList.isEmpty()) {
-            throw new ResourceNotFoundException("Cart List not found") ;
-        } else {
-            return ResponseEntity.ok(cartList);
-        }
-    }
-
-    @GetMapping("/{userID}")
-    public ResponseEntity<List<CartDto>> getCartByUser(User userID) {
-        List<CartDto> userCartList = cartService.getCartByUser(userID);
+    public ResponseEntity<List<CartDto>> getCartByUser() {
+//        System.out.println("UserID: " + userID.getUserID());
+        List<CartDto> userCartList = cartService.getCartByUser();
         if (userCartList.isEmpty()) {
             throw new ResourceNotFoundException("User Cart List not found") ;
         } else {
@@ -61,4 +52,9 @@ public class CartController {
         return ResponseEntity.ok(cartService.updateCart(cartUpdate.getQuantity(), cartUpdate.getCartID()));
     }
 
+    @DeleteMapping("/{cartID}")
+    public ResponseEntity<String> deleteCartByID(@PathVariable int cartID) {
+        cartService.deleteCartByID(cartID);
+        return ResponseEntity.ok("Cart with ID " + cartID + " has been deleted.");
+    }
 }

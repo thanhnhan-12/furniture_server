@@ -19,11 +19,11 @@ public interface CartRepository extends JpaRepository<Cart, Integer> {
     List<CartDto> getAllCart(@Param("userID") int userID );
 
     @Query(value = "SELECT Us.userid, Prod.productid,\n" +
-            "    MAX(Prod.product_name) AS product_name,\n" +
+            "    MAX(Prod.product_name) AS productName,\n" +
             "    MAX(Prod.price) AS price,\n" +
-            "    MAX(Img.name_image) AS name_image,\n" +
+            "    MAX(Img.name_image) AS nameImage,\n" +
             "    MAX(Ca.cartid) AS cartid,\n" +
-            "    SUM(Ca.quantity) AS total_quantity\n" +
+            "    SUM(Ca.quantity) AS quantity\n" +
             "FROM user AS Us\n" +
             "JOIN product AS Prod ON Us.userid = :userID\n" +
             "JOIN images AS Img ON Prod.productid = Img.productid\n" +
