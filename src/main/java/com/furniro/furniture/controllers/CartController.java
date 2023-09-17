@@ -31,11 +31,7 @@ public class CartController {
     public ResponseEntity<List<CartDto>> getCartByUser() {
 //        System.out.println("UserID: " + userID.getUserID());
         List<CartDto> userCartList = cartService.getCartByUser();
-        if (userCartList.isEmpty()) {
-            throw new ResourceNotFoundException("User Cart List not found") ;
-        } else {
             return ResponseEntity.ok(userCartList);
-        }
     }
 
     @PostMapping("/createCart")

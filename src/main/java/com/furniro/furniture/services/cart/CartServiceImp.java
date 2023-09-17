@@ -45,15 +45,25 @@ public class CartServiceImp implements CartService<Cart> {
 
     @Override
     public Cart createCart(CartRequest cartRequest) {
-        Cart cart = new Cart();
+        User user = (User) userService.getUserLogin();
         Product product = productRepository.findById(cartRequest.getProductID()).orElse(null) ;
         if(product == null ) {
             throw new ResourceNotFoundException("ProductID is not found");
         }
+        Cart cartFound = this.existCart(user.getUserID(), product.getProductID());
 
-        System.out.println("User: " + userService.getUserLogin());
-        cart.setUser((User) userService.getUserLogin());
-        cart.setQuantity(cartRequest.getQuantity());
+        System.out.println("cartFound" + cartFound);
+        Cart cart = new Cart();
+
+        if(cartFound != null) {
+            cartFound.setUser(user);
+            cartFound.setQuantity(cartFound.getQuantity() + cartRequest.getQuantity());
+            cartFound.setProduct(product);
+            return cartRepository.save(cartFound);
+        }
+
+        cart.setUser(user);
+        cart.setQuantity(1);
         cart.setProduct(product);
 
         return cartRepository.save(cart);
