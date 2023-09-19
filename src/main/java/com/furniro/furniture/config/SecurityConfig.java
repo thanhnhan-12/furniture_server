@@ -71,6 +71,9 @@ public class SecurityConfig {
                         .requestMatchers("/api/v1/cart/**").permitAll()
                         .requestMatchers("/api/v1/images/**").permitAll()
                         .requestMatchers("/api/v1/category/**").permitAll()
+                        .requestMatchers("/api/v1/province/**").permitAll()
+                        .requestMatchers("/api/v1/district/**").permitAll()
+                        .requestMatchers("/api/v1/ward/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .exceptionHandling(exceptionHandling ->
