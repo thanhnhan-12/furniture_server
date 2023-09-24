@@ -13,8 +13,8 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 
     boolean existsById(int productID);
 
-    @Query(value = "Select p.productid as productID ,p.product_name AS productName, p.description, p.price, MAX(i.name_image) AS nameImage \n" +
-            "FROM product p, images as i\n" +
+    @Query(value = "Select p.productid as productID ,p.product_name AS productName, p.description, p.price, p.quantity as quantity, MAX(i.name_image) AS nameImage \n" +
+            "FROM product as p, images as i\n" +
             "group by p.productid", nativeQuery = true)
     List<ProductDto> getAllProduct();
 

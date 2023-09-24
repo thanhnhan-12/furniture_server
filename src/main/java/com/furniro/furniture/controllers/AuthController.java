@@ -65,8 +65,11 @@ public class AuthController {
         user.setLastName(registerRequest.getLastName());
 //        user.setUsername(registerRequest.getUsername());
         user.setEmail(registerRequest.getEmail());
+//        user.setLocked(false);
         user.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
 
+        System.out.println("UserID: " + user.getUserID());
+        System.out.println("Email: " + user.getEmail());
 
         Role roles = roleRepository.findByName(
                 com.furniro.furniture.constants.Role.ROLE_USER);
@@ -74,6 +77,7 @@ public class AuthController {
         // Set 1 role
         user.setRoles(roles);
         User userResult = userService.createUser(user);
+        System.out.println("UserID: " + userResult.getUserID());
         CommonResponse<User> userCommonResponse =
                 new CommonResponse<>("User registered successfully", userResult);
 

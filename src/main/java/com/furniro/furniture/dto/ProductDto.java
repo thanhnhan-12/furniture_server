@@ -6,6 +6,6 @@ public interface ProductDto {
     String getProductName();
     String getDescription();
     double getPrice();
+    int getQuantity();
     String getNameImage();
-
 }

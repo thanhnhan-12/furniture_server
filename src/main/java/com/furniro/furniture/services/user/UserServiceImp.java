@@ -23,8 +23,8 @@ public class UserServiceImp implements UserService<User> {
     }
 
     @Override
-    public boolean isUsernameTaken(String userName) {
-        return userRepository.existsByUsername(userName);
+    public boolean isUsernameTaken(String username) {
+        return userRepository.existsByUsername(username);
     }
 
     @Override

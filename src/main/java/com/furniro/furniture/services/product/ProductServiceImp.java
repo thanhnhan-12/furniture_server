@@ -27,6 +27,7 @@ public class ProductServiceImp implements ProductService<Product> {
     @Override
     public ProductDtoMapper findProductByID(int productID) {
         Product product =  productRepository.findById(productID).orElse(null);
+        System.out.println("Quantity: " + product.getQuantity() );
         if(product == null) {
             throw new ResourceNotFoundException("Product not found");
         }

@@ -30,20 +30,14 @@ public class ProductController {
     }
 
     @GetMapping("/{productID}")
-    public ResponseEntity<ProductDtoMapper>  getProductById(@PathVariable int productID) {
+    public ResponseEntity<ProductDtoMapper>getProductById(@PathVariable int productID) {
         ProductDtoMapper productByID = productService.findProductByID(productID);
-
+        System.out.println("Quantity Controller: " + productByID.getQuantity());
         if (productByID == null ) {
             throw new ResourceNotFoundException("ProductID not found") ;
         } else {
             return ResponseEntity.ok(productByID);
         }
     }
-
-
-
-
-
-
 
 }
