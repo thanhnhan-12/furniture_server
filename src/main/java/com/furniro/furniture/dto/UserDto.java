@@ -1,23 +1,13 @@
 package com.furniro.furniture.dto;
 
-import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+public interface UserDto {
 
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
-public class UserDto {
-
-    @Id
-    private int userID;
-    private String username;
-    private String email;
-    private String firstName;
-    private String lastName;
-    private boolean isLocked;
+    int getUserID();
+    String getUsername();
+    String getEmail();
+    String getPassword();
+    String getFirstName();
+    String getLastName();
+    boolean isLocked();
 
 }
