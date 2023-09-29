@@ -75,7 +75,7 @@ public class AuthController {
                 com.furniro.furniture.constants.Role.ROLE_USER);
 
         // Set 1 role
-        user.setRoles(roles);
+       // user.setRoles(roles);
         User userResult = userService.createUser(user);
         System.out.println("UserID: " + userResult.getUserID());
         CommonResponse<User> userCommonResponse =
