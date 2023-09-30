@@ -25,4 +25,9 @@ public class Address {
 
     @OneToMany(mappedBy = "address", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Orders> ordersList;
+
+    @ManyToOne
+    @JoinColumn(name = "wardID", nullable = false)
+    @JsonIgnore
+    private Ward ward;
 }

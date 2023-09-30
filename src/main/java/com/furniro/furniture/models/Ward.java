@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity
 @Getter
 @Setter
@@ -25,5 +27,8 @@ public class Ward {
     @JoinColumn(name = "districtID", nullable = false)
     @JsonIgnore
     private District district;
+
+    @OneToMany(mappedBy = "ward", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Address> addressList;
 
 }
