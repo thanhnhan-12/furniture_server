@@ -25,7 +25,8 @@ public class AddressServiceImp implements AddressService<Address> {
 
     @Override
     public List<AddressDto> getAddressByUser() {
-        return null;
+        User userID = (User) userService.getUserLogin();
+        return addressRepository.getAddressByUser(userID.getUserID());
     }
 
     @Override
