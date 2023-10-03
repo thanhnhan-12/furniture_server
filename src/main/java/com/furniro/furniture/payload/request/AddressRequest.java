@@ -12,8 +12,8 @@ public class AddressRequest {
     @NotBlank(message = "Address Name is not empty")
     private String addressName;
 
-    @NotNull(message = "UserID is not empty")
-    private int userID;
+//    @NotNull(message = "UserID is not empty")
+//    private int userID;
 
     @NotNull(message = "WardID is not empty")
     private int wardID;

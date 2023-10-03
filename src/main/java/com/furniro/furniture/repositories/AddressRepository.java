@@ -17,10 +17,11 @@ public interface AddressRepository extends JpaRepository<Address, Integer> {
             "where Ad.address_name = :addressName ", nativeQuery = true)
     Address existAddress(@Param("addressName") String addressName);
 
-    @Query(value = "Select Ad.*, Pro.province_name as provinceName, Dis.district_name as districtName, War.ward_name as wardName\n" +
-            "From address as Ad, province as Pro, district as Dis, ward as War\n" +
-            "Where Pro.provinceid = Dis.provinceid and Dis.districtid = War.wardid \n" +
-            "\t  and Ad.wardid = War.wardid and Ad.userid = :userID", nativeQuery = true)
+    @Query(value = "Select Ad.*, Ad.address_name as addressName, MAX(War.ward_name) as wardName, MAX(Pro.provinceid) as provinceID,  \n" +
+            "            MAX(Pro.province_name) as provinceName, MAX(Dis.districtid) as districtID, MAX(Dis.district_name) as districtName \n" +
+            "            from address as Ad, province as Pro, district as Dis, ward as War\n" +
+            "            where Ad.wardid = War.wardid and Dis.districtid = War.districtid and Ad.userid = :userID\n" +
+            "            Group by Ad.addressid", nativeQuery = true)
     List<AddressDto> getAddressByUser(@Param("userID") int userID);
 
 }

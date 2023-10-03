@@ -21,6 +21,7 @@ public class AddressController {
 
     @GetMapping
     public ResponseEntity<List<AddressDto>> getAddressByUser() {
+        System.out.println("UserID: "  );
         List<AddressDto> addressList = addressService.getAddressByUser();
         return ResponseEntity.ok(addressList);
     }
@@ -28,7 +29,7 @@ public class AddressController {
     @PostMapping("/addAddress")
     public ResponseEntity addAddress(@Valid @RequestBody AddressRequest addressRequest) {
         System.out.println("Address Name: " + addressRequest.getAddressName());
-        System.out.println("Address UserID: " + addressRequest.getUserID());
+//        System.out.println("Address UserID: " + addressRequest.getUserID());
         System.out.println("Address WardID: " + addressRequest.getWardID());
         return ResponseEntity.ok(addressService.addAddress(addressRequest));
     }
