@@ -62,4 +62,9 @@ public class AddressServiceImp implements AddressService<Address> {
     public Address existAddress(String addressName) {
         return addressRepository.existAddress(addressName);
     }
+
+    @Override
+    public void deleteAddressByID(int addressID) {
+        addressRepository.deleteById(addressID);
+    }
 }

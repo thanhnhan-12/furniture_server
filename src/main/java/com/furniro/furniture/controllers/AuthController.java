@@ -32,6 +32,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.rmi.AlreadyBoundException;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @RestController
@@ -75,7 +76,7 @@ public class AuthController {
                 com.furniro.furniture.constants.Role.ROLE_USER);
 
         // Set 1 role
-       // user.setRoles(roles);
+        user.setRoles(Collections.singleton(roles));
         User userResult = userService.createUser(user);
         System.out.println("UserID: " + userResult.getUserID());
         CommonResponse<User> userCommonResponse =

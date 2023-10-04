@@ -18,15 +18,13 @@ public interface CartRepository extends JpaRepository<Cart, Integer> {
             "Group by Us.userid, Prod.productid, Ca.cartid", nativeQuery = true)
     List<CartDto> getAllCart(@Param("userID") int userID );
 
-    @Query(value = "SELECT Us.userid, Prod.productid,\n" +
-            "    (Prod.product_name) AS productName,\n" +
-            "    (Prod.price) AS price,\n" +
-            "    MAX(Img.name_image) AS nameImage,\n" +
-            "    MAX(Ca.cartid) AS cartID,\n" +
-            "    MAX(Ca.quantity) AS quantity\n" +
-            "FROM user AS Us, product as Prod, images as Img, cart as Ca\n" +
-            "where Prod.productid = Img.productid and Us.userid = :userID and Ca.productid = Prod.productid\n" +
-            "GROUP BY Us.userid, Prod.productid; ", nativeQuery = true)
+    @Query(value = "SELECT Us.userid, Prod.productid as productID, Prod.product_name as productName, Prod.price as price, MAX(Img.name_image) as nameImage, MAX(Ca.cartid) as CartID, MAX(Ca.quantity) as quantity \n" +
+            "FROM user AS Us \n" +
+            "JOIN cart AS Ca ON Us.userid = Ca.userid \n" +
+            "JOIN product AS Prod ON Ca.productid = Prod.productid \n" +
+            "JOIN images AS Img ON Prod.productid = Img.productid \n" +
+            "WHERE Us.userid = :userID\n" +
+            "GROUP BY Us.userid, Prod.productid", nativeQuery = true)
     List<CartDto> getCartByUser(@Param("userID") int userID);
 
     @Query(value = "Select * from cart as C where C.userid =:userID and C.productid =:productID ", nativeQuery = true)

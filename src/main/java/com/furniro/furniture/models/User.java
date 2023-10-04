@@ -26,9 +26,16 @@ public class User {
     private String firstName;
     private String lastName;
 
-    @OneToOne
-    @JoinColumn(name = "role_id", referencedColumnName = "roleID")
-    private Role roles;
+//    @OneToOne
+//    @JoinColumn(name = "role_id", referencedColumnName = "roleID")
+//    private Role roles;
+
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name = "role", joinColumns = @JoinColumn(name = "userid",
+            referencedColumnName = "userID"), inverseJoinColumns = @JoinColumn(name = "role_id",
+            referencedColumnName = "roleID")
+    )
+    private Set<Role> roles;
 
     @Email
     private String email;

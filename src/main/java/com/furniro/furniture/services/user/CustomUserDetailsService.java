@@ -26,18 +26,23 @@ public class CustomUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         User user = userRepository.findByEmail(email).orElse(null);
 
-        System.out.println("Vao loadUser" + user.getRoles().getName());
+        System.out.println("Vao loadUser " );
 
         boolean enabled = true;
         boolean accountNonExpired = true;
         boolean credentialsNonExpired = true;
         boolean isAccountNonLocked = !user.isLocked();
 
-        Collection<String> list = Arrays.asList(user.getRoles().getName());
+//        Collection<String> list = Arrays.asList(user.getRoles().getName());
 
-        Set<GrantedAuthority> authorities = list
+//        Set<GrantedAuthority> authorities = list
+//                .stream()
+//                .map(SimpleGrantedAuthority::new).collect(Collectors.toSet());
+
+        Set<GrantedAuthority> authorities = user
+                .getRoles()
                 .stream()
-                .map(SimpleGrantedAuthority::new).collect(Collectors.toSet());
+                .map((role) -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toSet());
 
         return new org.springframework.security.core.userdetails.User(user.getEmail(),
                 user.getPassword(),

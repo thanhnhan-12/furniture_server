@@ -29,9 +29,14 @@ public class AddressController {
     @PostMapping("/addAddress")
     public ResponseEntity addAddress(@Valid @RequestBody AddressRequest addressRequest) {
         System.out.println("Address Name: " + addressRequest.getAddressName());
-//        System.out.println("Address UserID: " + addressRequest.getUserID());
         System.out.println("Address WardID: " + addressRequest.getWardID());
         return ResponseEntity.ok(addressService.addAddress(addressRequest));
+    }
+
+    @DeleteMapping("/{addressID}")
+    public ResponseEntity<String> deleteAddressByID(@PathVariable int addressID) {
+        addressService.deleteAddressByID(addressID);
+        return ResponseEntity.ok("Address with ID " + addressID + " has been deleted.");
     }
 
 }

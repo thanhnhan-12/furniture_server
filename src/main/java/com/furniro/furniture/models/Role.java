@@ -1,6 +1,5 @@
 package com.furniro.furniture.models;
 
-
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,7 +18,7 @@ public class Role {
     @Column(length = 60, unique = true)
     private String name;
 
-    @OneToOne(mappedBy = "roles", cascade = CascadeType.ALL, orphanRemoval = true)
-    private User user;
+//    @OneToOne(mappedBy = "roles", cascade = CascadeType.ALL, orphanRemoval = true)
+//    private User user;
 
 }

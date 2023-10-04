@@ -13,4 +13,6 @@ public interface AddressService<A> {
 
     A existAddress(String addressName);
 
+    void deleteAddressByID(int addressID);
+
 }
