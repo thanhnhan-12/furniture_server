@@ -8,6 +8,7 @@ public interface UserDto {
     String getPassword();
     String getFirstName();
     String getLastName();
+    String getPhoneNumber();
     boolean isLocked();
 
 }

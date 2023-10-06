@@ -48,6 +48,8 @@ public class AuthController {
     private JwtConfig jwtConfig;
     private RefreshTokenService refreshTokenService;
 
+
+
     @PostMapping("/register")
     public ResponseEntity<?> registerUser(@Valid @RequestBody RegisterRequest registerRequest)
             throws AlreadyBoundException {
@@ -68,9 +70,11 @@ public class AuthController {
         user.setEmail(registerRequest.getEmail());
 //        user.setLocked(false);
         user.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
+        user.setPhoneNumber(registerRequest.getPhoneNumber());
 
         System.out.println("UserID: " + user.getUserID());
         System.out.println("Email: " + user.getEmail());
+        System.out.println("Phone Number: " + user.getPhoneNumber());
 
         Role roles = roleRepository.findByName(
                 com.furniro.furniture.constants.Role.ROLE_USER);
@@ -119,7 +123,7 @@ public class AuthController {
 
                 return ResponseEntity.ok(
                         new JwtResponse(token, refreshToken.getToken(), user.getUsername(),
-                                user.getEmail(), roleList));
+                                user.getEmail(), user.getPhoneNumber(), user.getFirstName(), user.getLastName(), roleList));
             } catch (Exception e) {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                         .body(new MessageResponse(e.getMessage()));
