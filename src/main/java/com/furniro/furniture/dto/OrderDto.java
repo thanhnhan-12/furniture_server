@@ -14,8 +14,10 @@ import java.util.List;
 @Setter
 @Data
 public class OrderDto {
-    @NotNull(message = "UserID not empty")
-    private int userID;
+//    @NotNull(message = "UserID not empty")
+//    private int userID;
+
+    private List<Integer> cartIDs;
 
     @NotNull(message = "AddressID not empty")
     private int addressID;

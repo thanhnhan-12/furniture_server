@@ -22,8 +22,8 @@ public class OrderController {
 
     @PostMapping("/createOrder")
     public ResponseEntity createOrder(@Valid @RequestBody OrderDto orderDto) {
-        List<OrderDetail> orderItemList = (List<OrderDetail>) orderService.createOrder(orderDto);
-
+        Orders order = orderService.createOrder(orderDto);
+        System.out.println("Order: " + order);
         return ResponseEntity.ok("Create Order Successfully!");
     }
 

@@ -1,15 +1,18 @@
 package com.furniro.furniture.services.order;
 
 import com.furniro.furniture.constants.MessageEnum;
+import com.furniro.furniture.dto.CartDto;
 import com.furniro.furniture.dto.OrderDto;
 import com.furniro.furniture.dto.OrderRequestDto;
 import com.furniro.furniture.exception.ResourceNotFoundException;
 import com.furniro.furniture.models.*;
+import com.furniro.furniture.payload.request.CartRequest;
 import com.furniro.furniture.payload.request.OrderRequest;
 import com.furniro.furniture.repositories.CartRepository;
 import com.furniro.furniture.repositories.OrderRepository;
 import com.furniro.furniture.repositories.ProductRepository;
 import com.furniro.furniture.repositories.UserRepository;
+import com.furniro.furniture.services.cart.CartService;
 import com.furniro.furniture.services.user.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -29,6 +32,8 @@ public class OrderServiceImp implements OrderService<Orders> {
     private UserRepository userRepository;
     private ProductRepository productRepository;
 
+    private CartService<Cart> cartService;
+
     @Override
     public List<OrderDto> getOrders() {
         return null;
@@ -37,11 +42,13 @@ public class OrderServiceImp implements OrderService<Orders> {
     @Override
     public Orders createOrder(OrderDto orderDto) {
         int totalPrice = 0;
+        User user = (User) userService.getUserLogin();
+
         Orders order = new Orders();
         Address address = new Address();
         List<OrderDetail> orderItemList = new ArrayList<>();
 
-        User user = userRepository.findById(Math.toIntExact(orderDto.getUserID())).orElse(null);
+//        User user = userRepository.findById(Math.toIntExact(orderDto.getUserID())).orElse(null);
         List<OrderRequestDto> orderItems = orderDto.getOrderItems();
 
         if (orderItems != null && orderItems.size() > 0) {
@@ -69,10 +76,22 @@ public class OrderServiceImp implements OrderService<Orders> {
         address.setAddressID(orderDto.getAddressID());
         order.setAddress(address);
 
+        System.out.println("OrderItemList: " + order.getOrderDetails());
+        System.out.println("TotalPrice: " + order.getTotalPrice() );
+        System.out.println("AddressID: " + address.getAddressID() );
+        System.out.println("Address: " + address.getAddressName() );
+
+        List<Integer> cartIDs = orderDto.getCartIDs();
+        if (cartIDs != null && !cartIDs.isEmpty()) {
+            cartService.clearCart(cartIDs);
+        }
+
         orderRepository.save(order);
 
-        return (Orders) order;
+
+        return order;
     }
+
 
     @Override
     public Orders existOrder(int userID, int orderID) {

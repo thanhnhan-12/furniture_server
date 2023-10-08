@@ -20,4 +20,7 @@ public interface CartService<C> {
     void deleteCartByID(int cartID);
 
     C updateCart(int quantity, int cartID);
+
+    List<CartDto> clearCart(List<Integer> cartIDs);
+
 }

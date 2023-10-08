@@ -10,8 +10,6 @@ import lombok.Setter;
 @Setter
 public class OrderDetail {
 
-    private int quantity;
-
     @Id
     @ManyToOne
     @JoinColumn(name = "orderID", nullable = false)
@@ -23,5 +21,7 @@ public class OrderDetail {
     @JoinColumn(name = "productID", nullable = false)
     @JsonIgnore
     private Product product;
+
+    private int quantity;
 
 }

@@ -3,9 +3,11 @@ package com.furniro.furniture.repositories;
 import com.furniro.furniture.dto.CartDto;
 import com.furniro.furniture.models.Cart;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -32,5 +34,15 @@ public interface CartRepository extends JpaRepository<Cart, Integer> {
 
     @Query(value = "Update Cart as Ca set Ca.quantity = :quantity where Ca.cartID = :cartID", nativeQuery = true)
     int updateCart(@Param("quantity") int quantity, @Param("cartID") int cartID );
+
+    @Transactional
+    @Modifying
+    @Query(value = "DELETE FROM cart as Ca WHERE cartid IN (:cartID);", nativeQuery = true)
+    List<CartDto> clearCart(@Param("cartID") List<Integer> cartID);
+
+//    void deleteByCartIDIn(List<Integer> cartIDs);
+
+    @Query(value = "SELECT cart.cartID FROM Cart cart WHERE cart.user.userID = :userID")
+    List<Integer> findCartIDsByUserID(@Param("userID") int userID);
 
 }
