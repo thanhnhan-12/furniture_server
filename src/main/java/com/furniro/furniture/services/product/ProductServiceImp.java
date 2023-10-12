@@ -20,6 +20,11 @@ public class ProductServiceImp implements ProductService<Product> {
     private ProductMapper productMapper;
 
     @Override
+    public Product createProduct(ProductDto productDto) {
+        return null;
+    }
+
+    @Override
     public List<ProductDto> getAllProducts() {
         return productRepository.getAllProduct() ;
     }
