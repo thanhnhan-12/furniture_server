@@ -9,16 +9,19 @@ import lombok.Setter;
 @Setter
 public class ProductRequest {
 
-    @NotBlank(message = "firstName is a required field.")
+    @NotBlank(message = "productName is a required field.")
     private String productName;
 
-    @NotBlank(message = "lastName is a required field.")
+    @NotBlank(message = "description is a required field.")
     private String description;
 
-    @NotNull(message = "wardID is not empty")
+    @NotNull(message = "price is not empty")
     private double price;
 
-//    @NotBlank(message = "Address Name is not empty")
-//    private String addressName;
+    @NotNull(message = "quantity is not empty")
+    private int quantity;
+
+    @NotNull(message = "categoryID is not empty")
+    private int categoryID;
 
 }
