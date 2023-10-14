@@ -16,6 +16,7 @@ public class ProductDtoMapper {
     private String description;
     private double price;
     private int quantity;
+    private int categoryID;
     List<Images> imagesList;
 
 }

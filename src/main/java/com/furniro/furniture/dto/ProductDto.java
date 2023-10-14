@@ -7,5 +7,6 @@ public interface ProductDto {
     String getDescription();
     double getPrice();
     int getQuantity();
+    int getCategoryID();
     String getNameImage();
 }

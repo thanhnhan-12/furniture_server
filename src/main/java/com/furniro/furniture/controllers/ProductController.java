@@ -4,8 +4,11 @@ import com.furniro.furniture.dto.ProductDto;
 import com.furniro.furniture.dto.ProductDtoMapper;
 import com.furniro.furniture.exception.ResourceNotFoundException;
 import com.furniro.furniture.models.Product;
+import com.furniro.furniture.payload.request.ProductRequest;
 import com.furniro.furniture.services.product.ProductService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,6 +41,18 @@ public class ProductController {
         } else {
             return ResponseEntity.ok(productByID);
         }
+    }
+
+    @PostMapping("/addProduct")
+    public ResponseEntity addProduct(@Valid @RequestBody ProductRequest productRequest) {
+        try {
+            return ResponseEntity.status(HttpStatus.CREATED)
+                    .body("Product added successfully" + productService.addProduct(productRequest) );
+        } catch (Exception e) {
+            throw new ResourceNotFoundException("Failed to add product") ;
+//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to add product: " + e.getMessage());
+        }
+//        return ResponseEntity.ok(productService.addProduct(productRequest));
     }
 
 }
