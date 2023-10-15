@@ -20,7 +20,10 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
     boolean existsByUsername(String username);
 
-//    @Query(value = "", nativeQuery = true)
-//    List<UserDto> getAllUser();
+    @Query(value = "Select Us.userid as userID, Us.first_name as firstName, Us.last_name as lastName, Us.email as email, Us.phone_number as phoneNumber," +
+            " Ro.roleid as roleID, Ro.name as name\n" +
+            "from user as Us, roles as Ro, user_roles as Ur\n" +
+            "where Us.userid = Ur.user_id and Ur.role_id = Ro.roleid", nativeQuery = true)
+    List<UserDto> getAllUser();
 
 }

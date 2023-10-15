@@ -17,8 +17,8 @@ import com.furniro.furniture.services.user.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -76,6 +76,8 @@ public class OrderServiceImp implements OrderService<Orders> {
         address.setAddressID(orderDto.getAddressID());
         order.setAddress(address);
 
+        order.setCreatedAt(LocalDateTime.now());
+
         System.out.println("OrderItemList: " + order.getOrderDetails());
         System.out.println("TotalPrice: " + order.getTotalPrice() );
         System.out.println("AddressID: " + address.getAddressID() );
@@ -87,7 +89,6 @@ public class OrderServiceImp implements OrderService<Orders> {
         }
 
         orderRepository.save(order);
-
 
         return order;
     }

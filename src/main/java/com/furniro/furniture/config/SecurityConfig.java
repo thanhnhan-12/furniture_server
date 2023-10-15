@@ -76,6 +76,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/v1/ward/**").permitAll()
                         .requestMatchers("/api/v1/address/**").permitAll()
                         .requestMatchers("/api/v1/order/**").permitAll()
+                        .requestMatchers("/api/v1/user/**").permitAll()
                         .requestMatchers("/api/v1/admin/**").permitAll()
                         .anyRequest().authenticated()
                 )

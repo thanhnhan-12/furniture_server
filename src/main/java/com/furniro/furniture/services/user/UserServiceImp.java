@@ -19,10 +19,10 @@ public class UserServiceImp implements UserService<User> {
     private UserRepository userRepository;
     private PageableCommon pageableCommon;
 
-//    @Override
-//    public List<UserDto> getAllUser() {
-//        return null;
-//    }
+    @Override
+    public List<UserDto> getAllUser() {
+        return userRepository.getAllUser();
+    }
 
     @Transactional
     @Override
