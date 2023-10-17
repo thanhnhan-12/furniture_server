@@ -1,9 +1,7 @@
 package com.furniro.furniture.services.order;
 
 import com.furniro.furniture.constants.MessageEnum;
-import com.furniro.furniture.dto.CartDto;
-import com.furniro.furniture.dto.OrderDto;
-import com.furniro.furniture.dto.OrderRequestDto;
+import com.furniro.furniture.dto.*;
 import com.furniro.furniture.exception.ResourceNotFoundException;
 import com.furniro.furniture.models.*;
 import com.furniro.furniture.payload.request.CartRequest;
@@ -35,7 +33,12 @@ public class OrderServiceImp implements OrderService<Orders> {
     private CartService<Cart> cartService;
 
     @Override
-    public List<OrderDto> getOrders() {
+    public List<OrderAdminDto> getAllOrders() {
+        return orderRepository.getAllOrders();
+    }
+
+    @Override
+    public List<OrderUserDto> getOrderByUser(int userID) {
         return null;
     }
 
