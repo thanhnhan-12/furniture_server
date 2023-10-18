@@ -18,7 +18,7 @@ public interface OrderRepository extends JpaRepository<Orders, Integer> {
             "MAX(Os.total_price) as totalPrice, MAX(Os.accept_date) as acceptDate,\n" +
             "MAX(Od.quantity) as quantity, \n" +
             "Us.userid as userID, Us.first_name as firstName, Us.last_name as lastName, \n" +
-            "MAX(Ad.address_name)\n" +
+            "MAX(Ad.address_name) as addressName\n" +
             "FROM Orders as Os, order_detail as Od, user as Us, address as Ad\n" +
             "where Os.userid = Us.userid and Os.addressid = Ad.addressid\n" +
             "group by Us.userid", nativeQuery = true)
