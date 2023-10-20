@@ -1,5 +1,7 @@
 package com.furniro.furniture.controllers;
 
+import com.furniro.furniture.dto.MonthlyRevenueDto;
+import com.furniro.furniture.dto.ProductSellingDto;
 import com.furniro.furniture.dto.UserAdminDto;
 import com.furniro.furniture.exception.ResourceNotFoundException;
 import com.furniro.furniture.models.Orders;
@@ -29,6 +31,26 @@ public class AdminController {
             throw new ResourceNotFoundException("Cannot found User List Statistics ");
         } else {
             return ResponseEntity.ok(userListStatistics);
+        }
+    }
+
+    @GetMapping("/bestSellingProducts")
+    public ResponseEntity bestSellingProducts() {
+        List<ProductSellingDto> productListSelling = adminService.bestSellingProducts();
+        if (productListSelling.isEmpty()) {
+            throw new ResourceNotFoundException("Cannot found Product Selling List Statistics ");
+        } else {
+            return ResponseEntity.ok(productListSelling);
+        }
+    }
+
+    @GetMapping("/monthlyRevenueStatistics")
+    public ResponseEntity monthlyRevenueStatistics() {
+        List<MonthlyRevenueDto> monthlyRevenue = adminService.monthlyRevenueStatistics();
+        if(monthlyRevenue.isEmpty()) {
+            throw new ResourceNotFoundException("Cannot found Monthly Revenue Statistics");
+        } else {
+            return ResponseEntity.ok(monthlyRevenue);
         }
     }
 

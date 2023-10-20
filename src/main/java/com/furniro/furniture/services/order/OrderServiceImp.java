@@ -85,13 +85,12 @@ public class OrderServiceImp implements OrderService<Orders> {
         System.out.println("TotalPrice: " + order.getTotalPrice() );
         System.out.println("AddressID: " + address.getAddressID() );
         System.out.println("Address: " + address.getAddressName() );
+        orderRepository.save(order);
 
         List<Integer> cartIDs = orderDto.getCartIDs();
         if (cartIDs != null && !cartIDs.isEmpty()) {
             cartService.clearCart(cartIDs);
         }
-
-        orderRepository.save(order);
 
         return order;
     }

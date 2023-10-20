@@ -91,28 +91,13 @@ public class CartServiceImp implements CartService<Cart> {
 
     @Override
     public List<CartDto> clearCart(List<Integer> cartIDs) {
-        if (cartIDs == null) {
-            // Xử lý trường hợp cartIDs là null (nếu cần thiết)
-            // Ví dụ: bạn có thể trả về một danh sách trống hoặc ném một exception tùy vào logic của ứng dụng
-            throw new IllegalArgumentException("cartIDs cannot be null");
-        }
-
-
-        User user = (User) userService.getUserLogin();
-
-        // Xác định danh sách các cartID thuộc về người dùng hiện tại
-        List<Integer> userCartIDs = cartRepository.findCartIDsByUserID(user.getUserID());
-
-        // Loại bỏ những cartID không thuộc về người dùng hiện tại
-        cartIDs.retainAll(userCartIDs);
+        User userID = (User) userService.getUserLogin();
 
         // Xoá các sản phẩm trong giỏ hàng
         cartRepository.clearCart(cartIDs);
 
-        List<CartDto> updatedCarts = cartRepository.clearCart(cartIDs);
+        // Sau khi xóa, bạn có thể cần trả về danh sách cập nhật hoặc null tùy vào logic của ứng dụng.
+        return cartRepository.getAllCart(userID.getUserID());
 
-        return updatedCarts;
     }
-
-
 }
