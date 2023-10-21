@@ -27,10 +27,12 @@ public interface AdminRepository extends JpaRepository<User, Integer> {
             "ORDER BY totalSales DESC", nativeQuery = true)
     List<ProductSellingDto> bestSellingProducts();
 
-    @Query(value = "SELECT CONCAT( MONTH(Os.created_at)) AS month, SUM(Os.total_price) AS totalRevenue\n" +
-            "      FROM orders as Os\n" +
-            "      WHERE MONTH(Os.created_at) BETWEEN 1 AND 12\n" +
-            "      GROUP BY MONTH(Os.created_at), Os.created_at", nativeQuery = true)
+    @Query(value = "SELECT\n" +
+            "    DATE_FORMAT(Os.created_at, '%Y-%m') as month,\n" +
+            "    SUM(Os.total_price) AS totalRevenue\n" +
+            "FROM orders as Os\n" +
+            "GROUP BY DATE_FORMAT(Os.created_at, '%Y-%m')\n" +
+            "ORDER BY month", nativeQuery = true)
     List<MonthlyRevenueDto> monthlyRevenueStatistics();
 
 }
