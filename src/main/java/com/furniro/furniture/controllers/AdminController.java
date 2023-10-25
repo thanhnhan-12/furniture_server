@@ -1,18 +1,14 @@
 package com.furniro.furniture.controllers;
 
-import com.furniro.furniture.dto.MonthlyRevenueDto;
-import com.furniro.furniture.dto.ProductSellingDto;
-import com.furniro.furniture.dto.UserAdminDto;
+import com.furniro.furniture.dto.*;
 import com.furniro.furniture.exception.ResourceNotFoundException;
 import com.furniro.furniture.models.Orders;
 import com.furniro.furniture.services.admin.AdminService;
 import com.furniro.furniture.services.order.OrderService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -51,6 +47,36 @@ public class AdminController {
             throw new ResourceNotFoundException("Cannot found Monthly Revenue Statistics");
         } else {
             return ResponseEntity.ok(monthlyRevenue);
+        }
+    }
+
+    @RequestMapping(value = "/searchProductName", method = RequestMethod.GET)
+    public ResponseEntity searchProductName( @RequestParam(value = "productName", required = false) String productName) {
+        List<SearchProductNameDto> productNameDto = adminService.searchProductName(productName);
+        System.out.println("Product Name: " + productName);
+
+        if(productNameDto.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Product Name not found");
+        } else {
+            return ResponseEntity.ok(productNameDto);
+        }
+    }
+
+    @RequestMapping(value = "/searchUser", method = RequestMethod.GET)
+    public ResponseEntity searchUser( @RequestParam(value = "firstName", required = false) String firstName,
+                                      @RequestParam(value = "lastName", required = false) String lastName,
+                                      @RequestParam(value = "email", required = false) String email,
+                                      @RequestParam(value = "phoneNumber", required = false) String phoneNumber) {
+        List<SearchUserInforDto> userInfor = adminService.searchUserInfor(firstName, lastName, email, phoneNumber);
+        System.out.println("First Name: " + firstName);
+        System.out.println("Last Name: " + lastName);
+        System.out.println("Email: " + email);
+        System.out.println("Phone Number: " + phoneNumber);
+
+        if(userInfor.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User information not found");
+        } else {
+            return ResponseEntity.ok(userInfor);
         }
     }
 
