@@ -6,7 +6,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class ImageUploadRequest {
+public class UploadImageRequest {
     @NotNull(message = "ProductID is not empty")
     private int productID;
 }
