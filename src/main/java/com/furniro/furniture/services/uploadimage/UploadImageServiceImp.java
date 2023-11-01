@@ -28,6 +28,7 @@ public class UploadImageServiceImp implements UploadImageService<Images>  {
 
     @Autowired
     private ConfigImage appConfig;
+
     @Transactional
     @Override
     public List<Images> uploadImage(MultipartFile[] imageFiles, UploadImageRequest uploadImageRequest) {
