@@ -46,7 +46,8 @@ public class UploadImageController {
         }
     }
 
-    @PostMapping("/uploadImage")
+    @RequestMapping(value = "/uploadImage", method = RequestMethod.POST,
+            headers = "Accept=multipart/form-data")
     public ResponseEntity uploadImage(@ModelAttribute("imageFiles") MultipartFile[] imageFiles, @Valid @ModelAttribute UploadImageRequest uploadImageRequest) {
         System.out.println("productID: " + uploadImageRequest.getProductID());
         try {

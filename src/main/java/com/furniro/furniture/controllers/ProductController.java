@@ -46,8 +46,9 @@ public class ProductController {
     @PostMapping("/addProduct")
     public ResponseEntity addProduct(@Valid @RequestBody ProductRequest productRequest) {
         try {
+            Product product =  productService.addProduct(productRequest);
             return ResponseEntity.status(HttpStatus.CREATED)
-                    .body("Product added successfully" + productService.addProduct(productRequest) );
+                    .body(product);
         } catch (Exception e) {
             throw new ResourceNotFoundException("Failed to add product") ;
 //            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to add product: " + e.getMessage());
