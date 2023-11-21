@@ -1,6 +1,5 @@
 package com.furniro.furniture.dto;
 
-
 public interface ProductDto {
     int getProductID();
     String getProductName();
